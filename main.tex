@@ -1,0 +1,54 @@
+\documentclass{IEEEtran}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+\begin{document}
+\title{Project Proposal - Designing a constrained MPC for dynamic path tracking of a Mobile Robot}
+\author{\textbf{Name:} Adharsh Mahesh Kumaar\\ \textbf{McGill ID:} 260905451 \\\textbf{Department:} Electrical and Computer Engineering}
+\maketitle
+
+\section{Problem}
+\label{sec:Problem}
+The problem mainly focuses on designing a constrained Model predictive controller for dynamic path tracking of a double steering fast off-road mobile robot. The controller incorporates the dynamic model by using the wheel-ground slippage phenomena. This wheel-ground slippage phenomenon includes wheel-ground lateral slippage and terrain parameters. The controller is formulated as an optimization problem in which the front and rear steering angles required to track the desired path are updated at each time step. Multiple constraints like the steering joint limits and tire adhesion area bounds are also incorporated. This controller is designed to ensure a good accuracy of path tracking at both high and low speeds. To evaluate the performance of the controller, the simulation is done using ROS. Controllers such as LQR, which do not incorporate dynamic constraints are used as a baseline for evaluating this proposed dynamic path tracking controller. The performance of this controller is also compared with controllers used in Autonomous vehicles. In Self driving cars, a 2 level controller design is implemented. A high-level longitudinal PID controller is used by the vehicle to move at the desired speed and a low-level lateral controller (Pure pursuit or Stanley or MPC) is used to give the steering angle required to track the desired path. Instead of this two-level implementation of controller design, this proposed dynamic path tracking controller can be used, provided it meets the desired performance. In this project, such a comparison of controllers is also to be made.
+
+\section{Motivation}
+
+Most of the path tracking controllers are designed using kinematic models or extended kinematic models(that is classical kinematic controller including sliding effects). These controllers are mainly used for on-road activities such as logistics and when the vehicle moves at a certain limited speed. Controllers that use dynamic models are efficient than the kinematic controllers or extended ones for various off-road applications(such as mining, agriculture, etc.) and high-speed robots. These disadvantages of kinematic controllers for path tracking applications are overcome by incorporating dynamic models and predictive strategies. Self-driving cars generally operate at a limited speed. This controller design can help the car operate at higher speeds, provided all other conditions like comfort rectangle conditions are satisfied. 
+
+\section{Related Work}
+Autonomous Vehicles such as the Unmanned Ground Vehicles (UGV) require accurate and stable control laws maintaining vehicle constraints even at high speeds where the terrain geometry and wheel-ground contact conditions are expected to change. Kinematic path tracking controllers are ineffective at higher speeds. For instance, an adaptive controller with a sliding parameter observer based on an extended kinetic model in the Frenet frame is inefficient at high speeds [2][3]. Authors in [4] and [5] designed an adaptive and predictive path tracking control law with sliding effects, where the predictive algorithm is related to the reference path curvature change. A nonlinear constrained MPC (NMPC) is developed for the stabilization of the kinematic model of a two-wheel mobile robot with actuator and state constraints in [6][7]. Path tracking controllers incorporate dynamic models and predictive strategies to overcome the limitations of kinematic controllers. [8] develops dynamic path controllers by incorporating nonlinear continuous-time generalized predictive control (NCGPC). [9] uses the LQR controller for dynamic path tracking. Both these controllers compute the required front and rear steering angles to track the desired trajectory. However, these controllers do not take into account any physical constraints.       
+
+\section{Objective and Contribution}
+
+The objective of this project is to implement a constrained Model Predictive controller and show that the controller incorporating a dynamic model has better accuracy for tracking the desired trajectory at various speeds (Both high and low) than the controller that uses only a kinematic model. To evaluate the performance of the controller, simulation is planned to be done using ROS Gazebo Simulator. The physical parameters of 'SPIDO' (the double steering mobile robot) are taken to design the MPC controller and for constraints in the optimization problem.\\
+The project is planned in such a way that the dynamic model of the off-road mobile robot is designed first and subsequently following with the implementation of Model Predictive Controller incorporating different physical constraints like steering angle constraints, slippage angle constraints, and tire adhesion. After designing both the dynamic model and Model Predictive Controller (Solving the optimization problem), simulation on ROS-Gazebo will be performed to evaluate the final results. As given in [1], two reference paths will be used to evaluate the performance. The first one is 'Z-path' and the second one is 'O-path'. Other simulation parameters like sampling time, range of steering angle constraints, etc., are chosen as per [1]. 
+
+\begin{thebibliography}{00}
+
+\bibitem{b1} M. Fnadi, F. Plumet and F. Benamar, "Model Predictive Control based Dynamic Path Tracking of a Four-Wheel Steering Mobile Robot," 2019 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS), Macau, China, 2019, pp. 4518-4523.
+
+\bibitem{b2} C. Cariou, R. Lenain, B. Thuilot and M. Berducat, Automatic guidance of a four-wheel-steering mobile robot for accurate field operations. In Journal of Field Robotics, vol. 26, pp. 504–518, 2009.
+
+\bibitem{b3} A. Ollero and O. Amidi. Predictive path tracking of mobile robots -Application to the CMU Navlab. In. IEEE International Conference on Advanced Robotics (ICRA), Pisa, Italy, pp. 1081-1086, 1991.
+
+\bibitem{b4} R. Lenain, B. Thuilot, C. Cariou and P. Martinet. Model Predictive Control for Vehicle Guidance in Presence of Sliding: Application to Farm Vehicles Path Tracking. In IEEE International Conference on Robotics and Automation (ICRA), pp. 885-890, 2005.
+
+\bibitem{b5} R. Lenain, B. Thuilot, C. Cariou and P. Martinet. Adaptive and Predictive Path Tracking Control for Off-road Mobile Robots. In European Journal of Control, pp. 419-439, 2007.
+
+\bibitem{b6} T. Keviczky, P. Falcone, F. Borrelli, J. Asgariand D. Hrovat. Predictive control approach to autonomous vehicle steering. In American Control Conference, Minneapolis, USA, 2006.
+
+\bibitem{b7} P. Falcone, F. Borrelli, J. Asgari, H. Tseng and D. Hrovat. Predictive Active Steering Control for Autonomous Vehicle Systems, IEEE Transactions on Control Systems Technology. pp. 566-580, 2007.
+
+\bibitem{b8}M. Krid, F. Ben Amar and R. Lenain. A new explicit dynamic path tracking controller using generalized predictive control. International Journal of Control, Automation and Systems, pp. 303-314, 2017.
+
+\bibitem{b9} M. Fnadi, B. Menkouz, F. Plumet and F. Benamar, Path tracking control for a double steering off-road mobile robot. In : ROMANSY 22-Robot Design, Dynamics and Control. Springer, pp. 441-449, 2019.
+
+
+\end{thebibliography}
+
+\end{document}
+
